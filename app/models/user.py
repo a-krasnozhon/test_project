@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Dict, Optional
 
 from app.db.base_class import MongoBaseModel
 
@@ -11,6 +11,6 @@ class User(MongoBaseModel):
 
     email: EmailStr
     username: Optional[str]
-    topics: Optional[List[str]]
+    sources: Optional[Dict[str, List[str]]] = dict()
 
     created_at: datetime

@@ -1,4 +1,4 @@
-from typing import Optional, List, Annotated, Any
+from typing import Optional, List, Annotated, Dict
 
 from bson import ObjectId
 from pydantic import BaseModel, Field
@@ -17,12 +17,12 @@ class TokenBase(BaseModel):
 class UserBase(BaseModel):
     email: str
     username: str = ''
-    topics: Optional[List[str]] = []
+    sources: Optional[Dict[str, List[str]]] = {}
 
 
 class UserUpdate(BaseModel):
     username: str = ''
-    topics: Optional[List[str]] = []
+    sources: Optional[Dict[str, List[str]]] = {}
 
 
 class UserCreate(UserBase):

@@ -23,10 +23,9 @@ class CRUDBase(Generic[CollectionType, CreateSchemaType, UpdateSchemaType]):
             _id = ObjectId(_id)
         return self.model(**await self.collection.find_one({'_id': _id}))
 
-    async def get_multi(self, *, skip: int = 0, limit: int = 20, sort_by: str = '') -> List[CollectionType]:
-        docs = await self.collection.find({}).sort(sort_by, -1).skip(skip).limit(limit)
-        for doc in docs:
-            yield self.model(**doc)
+    async def get_multi(self, skip: int = 0, limit: int = 20, sort_by: str = '', **kwargs) -> List[CollectionType]:
+        docs = self.collection.find(kwargs).sort(sort_by, -1).skip(skip).limit(limit)
+        return [self.model(**doc) async for doc in docs]
 
     async def create(self, obj_in: CreateSchemaType) -> Optional[CollectionType]:
         doc_data = obj_in.dict(by_alias=True, exclude_none=True)

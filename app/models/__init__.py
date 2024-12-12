@@ -1,2 +1,2 @@
 from .user import User
-from .stream import Stream
+from .source import DummySourceOneContent
