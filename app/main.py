@@ -8,6 +8,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from app.api.api_v1.api import api_router
 from app.core.config import settings
 
+import mongomock_motor
+
 
 logging.getLogger('root').setLevel('INFO')
 logging.lastResort.setLevel(INFO)
@@ -35,18 +37,20 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.on_event("startup")
 async def startup_db_client():
-    app.mongodb_client = AsyncIOMotorClient(settings.MONGO_CONNECTION_URI)
-    app.database = app.mongodb_client.get_default_database(default='default')
-
-    ping_response = await app.database.command("ping")
-    if int(ping_response["ok"]) != 1:
-        raise Exception("Problem connecting to database cluster.")
+    app.database = mongomock_motor.AsyncMongoMockClient().get_database('default')
+    # app.mongodb_client = AsyncIOMotorClient(settings.MONGO_CONNECTION_URI)
+    # app.database = app.mongodb_client.get_default_database(default='default')
+    #
+    # ping_response = await app.database.command("ping")
+    # if int(ping_response["ok"]) != 1:
+    #     raise Exception("Problem connecting to database cluster.")
 
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
     print("Closing MongoDB connection.")
-    app.mongodb_client.close()
+    if not settings.USE_MONGO_MOCK:
+        app.mongodb_client.close()
 
 
 # if __name__ == "__main__":

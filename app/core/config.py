@@ -18,18 +18,19 @@ class Settings(BaseSettings):
 
     DS1_BASE_URL: str = 'https://credcompare-hr-test-d81ffdfbad0d.herokuapp.com'
     DS1_SUBSCRIBE: str = '/subscribe/{stream}'
-    DS1_RETRIEVE: str = '/stream'
+    DS1_RETRIEVE: str = '/stream/'
     DS1_AVAILABLE_TOPICS: List[str] = ["golf", "news", "food", "movies", "hobby", "games"]
     DS1_DESCRIPTION: str = 'Some source description'
 
     DS2_BASE_URL: str = 'https://credcompare-hr-test-d81ffdfbad0d.herokuapp.com'
     DS2_SUBSCRIBE: str = '/subscribe/{stream}'
-    DS2_RETRIEVE: str = '/stream'
+    DS2_RETRIEVE: str = '/stream/'
     DS2_AVAILABLE_TOPICS: List[str] = ["golf", "news", "food", "movies", "hobby", "games"]
     DS2_DESCRIPTION: str = 'Some source description'
 
     # mongo
     MONGO_CONNECTION_URI: str
+    USE_MONGO_MOCK: bool = True
 
     class Config:
         case_sensitive = True

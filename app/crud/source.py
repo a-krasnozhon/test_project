@@ -5,8 +5,7 @@ from app.schemas.source import (
 )
 
 
-class CRUDSource(CRUDBase[DummySourceOneContent, DummySourceOneContentUpdate, DummySourceOneContentCreate
-                 ]):
+class CRUDSource(CRUDBase[DummySourceOneContent, DummySourceOneContentCreate, DummySourceOneContentUpdate]):
     model = DummySourceOneContent
 
     async def get_topic(self, topic: str):

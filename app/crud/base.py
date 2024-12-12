@@ -21,7 +21,10 @@ class CRUDBase(Generic[CollectionType, CreateSchemaType, UpdateSchemaType]):
     async def get(self, _id: Union[ObjectId, str]) -> Optional[CollectionType]:
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        return self.model(**await self.collection.find_one({'_id': _id}))
+        doc = await self.collection.find_one({'_id': _id})
+        if not doc:
+            return None
+        return self.model(**doc)
 
     async def get_multi(self, skip: int = 0, limit: int = 20, sort_by: str = '', **kwargs) -> List[CollectionType]:
         docs = self.collection.find(kwargs).sort(sort_by, -1).skip(skip).limit(limit)

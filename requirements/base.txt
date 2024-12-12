@@ -12,3 +12,6 @@ sentry_sdk==1.5.4  # https://github.com/getsentry/sentry-python
 httpx==0.21.3  # https://github.com/projectdiscovery/httpx
 aiohttp==3.8.1  # https://github.com/aio-libs/aiohttp
 PyJWT==2.10.1  # https://pypi.org/project/PyJWT/
+
+mongomock
+mongomock-motor

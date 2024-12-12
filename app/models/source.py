@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from app.db.base_class import MongoBaseModel
 
 
-class DummySourceOneContent(BaseModel):
+class DummySourceOneContent(MongoBaseModel):
     __collection__ = 'dummy_source_1'
     stream: str
     topic: str
@@ -12,7 +12,7 @@ class DummySourceOneContent(BaseModel):
     created_at: datetime
 
 
-class DummySourceTwoContent(BaseModel):
+class DummySourceTwoContent(MongoBaseModel):
     __collection__ = 'dummy_source_2'
     stream: str
     topic: str
