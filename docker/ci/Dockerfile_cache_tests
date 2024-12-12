@@ -1,0 +1,10 @@
+FROM python:3.9.10-slim-bullseye
+ARG CI_PROJECT_DIR
+WORKDIR ${CI_PROJECT_DIR}
+RUN apt update && apt install -y --no-install-recommends cowsay \
+                                                         libpq-dev \
+                                                         git \
+                                                         build-essential && \
+                                                         rm -rf /var/lib/apt/lists/*
+COPY environment/requirements requirements
+RUN pip install --exists-action=s -r requirements/base.txt -r requirements/testing.txt

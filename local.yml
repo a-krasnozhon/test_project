@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - db
+    volumes:
+      - mongodata:/data/db
+    env_file:
+      - docker/db/.env
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile_local
+    networks:
+      - db
+    env_file:
+      - docker/app/.env
+      - docker/db/.env
+    ports:
+        - 8000:8000
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  mongodata:
+    name: test_project_mongo
+    driver: local
